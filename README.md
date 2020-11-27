@@ -14,8 +14,6 @@ Converts jupyter files to html format documents with "jupyter nbconvert --to" co
 lein run
 ```
 
-3. Files after conversion are in the same hierarchy as files before conversion.(output-path is planned)
-
 ## Planned
 
 * Other format.
