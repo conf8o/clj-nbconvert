@@ -18,7 +18,7 @@ lein run
 ## Planned
 
 * Other format.
-* Option of output-path.
+* ~~Option of output-path.~~ done.
 * Standalone.
 
 ## License
