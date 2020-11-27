@@ -1,18 +1,19 @@
 (ns clj-nbconvert.convert
-  (:use [clojure.java.shell :only [sh]])
-  (:require [clojure.string :as string]
-            [clj-nbconvert.option :as option]))
+  (:require [clojure.java.shell :refer [sh]]
+            [clojure.string :as string]
+            [clj-nbconvert.option :as option]
+            [clj-nbconvert.file.ipynb :refer [ipynb-pattern]]))
 
-(def converting-command "jupyter nbconvert --to")
+(def jupyter "jupyter")
+(def -- {:to "--to"})
 
 (def supported-format {:html "html"})
 
 (defn convert-to [format- notebook]
   (when-let [format (supported-format format-)]
-    (let [command (string/join " " [converting-command format notebook])]
       (println "Converting to" format ":" notebook)
       (conj
         (if option/windows-os?
-          (sh "cmd" "/c" command)
-          (sh command))
-        {:notebook notebook}))))
+          (sh "cmd" "/c" (string/join " " [jupyter "nbconvert" (-- :to) format notebook]))
+          (sh jupyter "nbconvert" (-- :to) format notebook))
+        {:formatted (string/replace notebook ipynb-pattern (str "." format))})))

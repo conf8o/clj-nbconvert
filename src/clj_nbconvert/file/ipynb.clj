@@ -1,9 +1,11 @@
 (ns clj-nbconvert.file.ipynb
-  (:require [clj-nbconvert.option :as option]
+  (:require [clojure.java.io]
             [clj-nbconvert.file.utils :as file-utils]))
 
+(def ipynb-pattern #"\.ipynb$")
+
 (defn ipynb-path? [path]
-  (boolean (re-find #"\.ipynb$" path)))
+  (boolean (re-find ipynb-pattern path)))
 
 (defn get-ipynb-paths
   ([dir-path]
