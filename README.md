@@ -6,6 +6,7 @@ Converts jupyter files to html format documents with "jupyter nbconvert --to" co
 
 1. Set following properties in `src/clj_nbconvert/config.clj`.
     * :input-path - Jupyter files in its lower hierarchy will be converted to html documents.
+    * :output-path - Formatted files will be in this path. Retains hierarchy.
 
 2. Do main function.
 
