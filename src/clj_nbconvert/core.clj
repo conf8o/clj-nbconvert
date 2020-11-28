@@ -1,6 +1,5 @@
 (ns clj-nbconvert.core
-  (:require [clojure.java.io :as io]
-            [clj-nbconvert.option :as option]
+  (:require [clj-nbconvert.option :as option]
             [clj-nbconvert.utils :refer [success-comp]]
             [clj-nbconvert.output :refer [output-with-config]]
             [clj-nbconvert.file.ipynb :refer [get-ipynb-files]]
