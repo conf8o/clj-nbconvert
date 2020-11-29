@@ -1,7 +1,7 @@
 (ns clj-nbconvert.output
   (:require [clojure.java.io :as io]
-            [clj-nbconvert.option :as option]
-            [clj-nbconvert.file.utils :refer [count-path drop-path]]))
+            [clj-nbconvert.file.utils :refer [to-uri]]
+            [clj-nbconvert.option :as option]))
 
 (defn make-output-base
   "Makes function to output source based with paths of arguments.
@@ -12,11 +12,11 @@
   source: /aaa/bbb/ccc/ddd/eee/foo.txt
   output: /xxx/yyy/ddd/eee/foo.txt"
   [input-base-path output-base-path]
-  (let [input-base-path-count (count-path input-base-path)]
+  (let [input-base-uri (to-uri input-base-path)]
     (fn [source]
       (let [output-file (->> source
-                             .toPath
-                             (drop-path input-base-path-count)
+                             to-uri
+                             (.relativize input-base-uri)
                              .toString
                              (io/file output-base-path))]
         (io/make-parents output-file)

@@ -1,5 +1,5 @@
 (ns clj-nbconvert.file.ipynb
-  (:require [clojure.java.io]
+  (:require [clojure.java.io　:as io]
             [clj-nbconvert.file.utils :as file-utils]))
 
 (def ipynb-pattern #"\.ipynb$")
@@ -10,7 +10,7 @@
 (defn get-ipynb-files
   ([dir-path]
     (->> dir-path
-         clojure.java.io/file
+         io/file
          file-seq
          (filter #(not (file-utils/is-in-hidden %)))
          (filter ipynb?))))

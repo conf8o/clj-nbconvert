@@ -1,15 +1,7 @@
 (ns clj-nbconvert.file.utils
-  (:require [clojure.java.io :as io])
-  (:import  [java.nio.file Path Files]
-            [java.io File]))
-
-(defmulti count-path class)
-(defmethod count-path Path [path] (.getNameCount path))
-(defmethod count-path File [file] (count-path (.toPath file)))
-(defmethod count-path String [path] (count-path (.toPath (io/file path))))
-
-(defn drop-path [c path]
-  (.subpath path c (.getNameCount path)))
+  (:require [clojure.string :as string])
+  (:import  [java.nio.file Files]
+            [java.net URI]))
 
 (defn is-in-hidden [file]
   (->> file
@@ -17,3 +9,8 @@
        .iterator
        iterator-seq
        (some #(Files/isHidden %))))
+
+(defn to-uri [path]
+  (-> path
+      (string/replace " " "%20")
+      URI.))
