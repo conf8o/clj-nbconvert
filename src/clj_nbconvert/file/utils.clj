@@ -8,9 +8,11 @@
        .toPath
        .iterator
        iterator-seq
-       (some #(Files/isHidden %))))
+       (some #(= (first (.toString %)) \.))))
 
 (defn to-uri [path]
-  (-> path
-      (string/replace " " "%20")
-      URI.))
+  (URI. 
+   (str "file:///"
+   (-> path
+       (string/replace "\\" "/")
+       (string/replace " " "%20")))))
