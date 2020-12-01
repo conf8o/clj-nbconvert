@@ -1,12 +1,13 @@
 (ns clj-nbconvert.utils)
 
-(defn success-comp
-  "Compose functions. Process continues from front until any function returns nil."
-  [function & more]
-  (fn [val & vals]
-    (loop [x (apply function val vals)
-           fs more]
-      (cond
-        (nil? x) nil
-        (empty? fs) x
-        :else (recur ((first fs) x) (next fs))))))
+(defn maybe-comp
+  "Composes functions, maybe :). The returned fn returns nil if anyone does so."
+  ([f] f)
+  ([f g]
+    (fn
+      ([] (let [a (g)]
+            (when a (f a))))
+      ([x & args] (let [a (apply g x args)]
+                    (when a (f a))))))
+  ([f g & fs]
+    (reduce maybe-comp (list* f g fs))))
