@@ -13,6 +13,6 @@
 (defn to-uri [path]
   (URI. 
    (str "file:///"
-   (-> path
-       (string/replace "\\" "/")
-       (string/replace " " "%20")))))
+        (-> path
+            (string/replace "\\" "/")
+            (string/replace " " "%20")))))
