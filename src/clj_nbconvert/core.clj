@@ -13,7 +13,7 @@
    (partial convert-to :html)))
 
 (defn -main []
-  (let [ipynb (get-ipynb-files (option/config :input-path))]
+  (let [ipynb (get-ipynb-files (:input-path option/config))]
     (doseq
      [converted (pmap convert-pipeline ipynb)]
       (println "Output :" (.toString converted)))

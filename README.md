@@ -17,7 +17,6 @@ lein run
 ## Planned
 
 * Other format.(Currently only html is supported)
-* ~~Option of output-path.~~ done.
 * Standalone.
 
 ## License
