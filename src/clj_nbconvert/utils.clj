@@ -5,9 +5,9 @@
   ([f] f)
   ([f g]
     (fn
-      ([] (let [a (g)]
-            (when a (f a))))
-      ([x & args] (let [a (apply g x args)]
-                    (when a (f a))))))
+      ([] (when-let [a (g)]
+            (f a)))
+      ([x & args] (when-let [a (apply g x args)]
+                    (f a)))))
   ([f g & fs]
     (reduce maybe-comp (list* f g fs))))
