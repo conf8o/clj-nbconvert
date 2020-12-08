@@ -18,17 +18,24 @@
     (let [nb-name (.toString notebook)]
       (println "Converting to" format ":" nb-name)
       (conj
-        (if option/windows-os?
-          (sh "cmd" "/c" (string/join " " [jupyter "nbconvert" (-- :to) format nb-name]))
-          (sh jupyter "nbconvert" (-- :to) format nb-name)) 
-        {:file (io/file (string/replace nb-name ipynb-pattern (str "." format)))
-         :format format}))))
+       (if option/windows-os?
+         (sh "cmd" "/c" (string/join " " [jupyter "nbconvert" (-- :to) format nb-name]))
+         (sh jupyter "nbconvert" (-- :to) format nb-name)) 
+       {:file (io/file (string/replace nb-name ipynb-pattern (str "." format)))
+        :format format}))))
 
 (defn result-with-log 
   "Outputs converting log and returns result if key :exit of result is 0 else nil."
   [result]
   (if (zero? (:exit result))
-    (do (println "Successful converting to" (:format result) ":" (.toString (:file result))) result)
-    (println "Failed converting to" (:format result) ":" 
-                 (.toString (:file result))
-                 (:err result))))
+    (do 
+      (println "Successful converting to"
+                (:format result)
+                ":"
+                (.toString (:file result)))
+      result)
+    (println "Failed converting to"
+             (:format result)
+             ":" 
+             (.toString (:file result))
+             (:err result))))
