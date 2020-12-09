@@ -5,12 +5,13 @@
 (def ipynb-pattern #"\.ipynb$")
 
 (defn ipynb? [path]
-  (boolean (re-find ipynb-pattern (.toString path))))
+  (when path
+    (re-find ipynb-pattern (.toString path))))
 
 (defn get-ipynb-files
   ([dir-path]
     (->> dir-path
          io/file
          file-seq
-         (filter #(not (file-utils/is-in-hidden %)))
+         (filter #(not (file-utils/in-hidden? %)))
          (filter ipynb?))))
