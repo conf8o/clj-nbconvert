@@ -9,7 +9,7 @@
     (re-find ipynb-pattern (.toString path))))
 
 (defn get-ipynb-files
-  ([dir-path]
+  ([^CharSequence dir-path]
     (->> dir-path
          io/file
          file-seq

@@ -13,7 +13,7 @@
   output: /xxx/yyy/ddd/eee/foo.txt"
   [input-base-path output-base-path]
   (let [input-base-uri (to-uri input-base-path)]
-    (fn [source]
+    (fn [^CharSequence source]
       (let [output-file (->> source
                              to-uri
                              (.relativize input-base-uri)
@@ -23,6 +23,6 @@
         (io/copy source output-file)
         output-file))))
 
-(defn output-with-config [source]
+(defn output-with-config [^CharSequence source]
   (let [{input :input-path output :output-path} option/config]
     ((make-output-base input output) source)))
