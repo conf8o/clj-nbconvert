@@ -1,5 +1,6 @@
 (ns clj-nbconvert.file.utils
-  (:require [clojure.string :as string])
+  (:require [clojure.string :as string]
+            [clojure.java.io :as io])
   (:import  [java.io File]
             [java.nio.file Files]
             [java.net URI]))
@@ -19,3 +20,6 @@
           (-> path
               (string/replace "\\" "/")
               (string/replace " " "%20"))))))
+
+(defn resource [path]
+  (.toString (.getPath (io/resource path))))

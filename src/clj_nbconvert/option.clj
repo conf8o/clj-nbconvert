@@ -1,6 +1,6 @@
-(ns clj-nbconvert.option)
+(ns clj-nbconvert.option
+  (:require [clj-nbconvert.file.utils :as file-utils]))
 
-(def config 
-  {:input-path "." :output-path "."})
+(def config (load-file (file-utils/resource "config.clj")))
 
 (def windows-os? (clojure.string/includes? (System/getProperty "os.name") "Windows"))
