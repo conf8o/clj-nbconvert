@@ -22,4 +22,4 @@
               (string/replace " " "%20"))))))
 
 (defn resource [path]
-  (.toString (.getPath (io/resource path))))
+  (.getPath (io/resource path)))
