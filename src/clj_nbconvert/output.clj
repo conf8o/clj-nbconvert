@@ -23,6 +23,6 @@
         (io/copy source output-file)
         output-file))))
 
-(defn output-with-config [^CharSequence source]
+(def output-with-config
   (let [{input :input-path output :output-path} option/config]
-    ((make-output-base input output) source)))
+    (make-output-base input output)))
